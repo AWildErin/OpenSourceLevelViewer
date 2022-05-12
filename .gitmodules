@@ -1,0 +1,3 @@
+[submodule "Thirdparty/ImGui.NET"]
+	path = Thirdparty/ImGui.NET
+	url = https://github.com/mellinoe/ImGui.NET
