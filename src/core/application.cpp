@@ -1,4 +1,5 @@
 #include "application.h"
+
 #include <iostream>
 
 Application::Application()
@@ -30,6 +31,12 @@ void Application::Init()
 
     glfwMakeContextCurrent(pWindow);
     //glfwSetKeyCallback(pWindow, key_callback);
+
+    if (!gladLoadGL(glfwGetProcAddress))
+    {
+        std::cerr << "Failed to initialise glad" << std::endl;
+        this->Shutdown(EXIT_FAILURE);
+    }
 
     int width, height;
     glfwGetFramebufferSize(pWindow, &width, &height);
