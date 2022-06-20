@@ -15,7 +15,7 @@ public:
 	// Initialises and shutdowns OpenGL.
 	// Takes the main brunt of the scaffolding
 	void Init();
-	void Shutdown();
+	void Shutdown(int exitType);
 
 	// Returns bool for those managers that we have to check
 	// 100% got added to our application
@@ -26,6 +26,9 @@ private:
 	//void PreRender();
 	void Render();
 	//void PostRender();
+
+	// Callbacks
+	static void Callback_FrameBufferSize(GLFWwindow* window, int width, int height);
 
 	std::vector<Manager*> pManagers;
 	GLFWwindow* pWindow = nullptr;
