@@ -13,7 +13,7 @@ void Application::Init()
 {
     if (!glfwInit())
     {
-        std::cout << "Error: GLFW failed to initialise!" << std::endl;
+        std::cerr << "Error: GLFW failed to initialise!" << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -24,9 +24,8 @@ void Application::Init()
 
     if (!pWindow)
     {
-        glfwTerminate();
-        std::cout << "Error: Window creation failed" << std::endl;
-        exit(EXIT_FAILURE);
+        std::cerr << "Error: Window creation failed" << std::endl;
+        this->Shutdown(EXIT_FAILURE);
     }
 
     glfwMakeContextCurrent(pWindow);
@@ -35,6 +34,7 @@ void Application::Init()
     int width, height;
     glfwGetFramebufferSize(pWindow, &width, &height);
     glViewport(0, 0, width, height);
+    glfwSetFramebufferSizeCallback(pWindow, Callback_FrameBufferSize);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glfwSwapInterval(1);
 
@@ -61,14 +61,14 @@ void Application::Init()
         delete man;
     }
 
-    this->Shutdown();
+    this->Shutdown(EXIT_SUCCESS);
 }
 
-void Application::Shutdown()
+void Application::Shutdown(int exitType)
 {
     glfwDestroyWindow(pWindow);
     glfwTerminate();
-    exit(EXIT_SUCCESS);
+    exit(exitType);
 }
 
 // todo: Actually check if the manager was already added
@@ -90,4 +90,9 @@ void Application::Render()
     {
         man->Render();
     }
+}
+
+void Application::Callback_FrameBufferSize(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }
