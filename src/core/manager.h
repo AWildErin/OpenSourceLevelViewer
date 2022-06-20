@@ -1,6 +1,5 @@
 #pragma once
 
-
 /// <summary>
 /// Defines the base class for any "manager" object.
 /// e.g. WorldManager, ImGuiManager etc.
